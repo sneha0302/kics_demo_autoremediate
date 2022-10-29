@@ -16,7 +16,7 @@ jobs:
       continue-on-error: true
       run: |
        docker pull checkmarx/kics:latest
-       docker run -u $UID:$GID -v $PWD:/$GITHUB_WORKSPACE checkmarx/kics:ubi8 scan -p $GITHUB_WORKSPACE/terraform,$GITHUB_WORKSPACE/cft  --report-formats "all" --ignore-on-exit "all" -o /$GITHUB_WORKSPACE -v
+       docker run -u $UID:$GID -v $PWD:/$GITHUB_WORKSPACE checkmarx/kics:ubi8 scan -p $GITHUB_WORKSPACE/main.tf  --report-formats "all" --ignore-on-exit "all" -o /$GITHUB_WORKSPACE -v
        echo "Remediating issues"
        docker run -u $UID:$GID -v $PWD:/$GITHUB_WORKSPACE checkmarx/kics:ubi8 remediate --include-ids "all" --results "${GITHUB_WORKSPACE}/results.json" -v
     - name: Upload KICS scan results to GitHub Security tab
